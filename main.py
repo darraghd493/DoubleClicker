@@ -18,24 +18,17 @@ class MouseButton(enum.Enum):
 
 
 class MouseDetector:
-    @staticmethod
-    def __convertButtonState__(state):
-        if state < 0:
-            return True
-        else:
-            return False
-
     def isLeftDown(self):
-        return self.__convertButtonState__(win32api.GetKeyState(0x01))
+        return win32api.GetKeyState(0x01)&0x8000 > 0
 
     def isRightDown(self):
-        return self.__convertButtonState__(win32api.GetKeyState(0x02))
+        return win32api.GetKeyState(0x02)&0x8000 > 0
 
     def isWhatDown(self, button):
         if button == MouseButton.Left:
-            return self.__convertButtonState__(win32api.GetKeyState(0x01))
+            return win32api.GetKeyState(0x01)&0x8000 > 0
         else:
-            return self.__convertButtonState__(win32api.GetKeyState(0x02))
+            return win32api.GetKeyState(0x02)&0x8000 > 0
 
 
 class KeyDetector:
