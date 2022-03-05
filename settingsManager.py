@@ -48,7 +48,8 @@ defaultSettings = {
             "Style": "background:rgba(0,0,0,0);opacity: 0;",
             "TextStyle": "color: rgb(225, 225, 225);font-size:18px;",
             "Text": "DoubleClicker"
-        }
+        },
+        "Offset": 0
     }
 }
 

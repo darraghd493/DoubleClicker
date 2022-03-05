@@ -18,17 +18,24 @@ class MouseButton(enum.Enum):
 
 
 class MouseDetector:
+    @staticmethod
+    def __convertButtonState__(state):
+        if state < 0:
+            return True
+        else:
+            return False
+
     def isLeftDown(self):
-        return win32api.GetKeyState(0x01)&0x8000 > 0
+        return self.__convertButtonState__(win32api.GetKeyState(0x01))
 
     def isRightDown(self):
-        return win32api.GetKeyState(0x02)&0x8000 > 0
+        return self.__convertButtonState__(win32api.GetKeyState(0x02))
 
     def isWhatDown(self, button):
         if button == MouseButton.Left:
-            return win32api.GetKeyState(0x01)&0x8000 > 0
+            return self.__convertButtonState__(win32api.GetKeyState(0x01))
         else:
-            return win32api.GetKeyState(0x02)&0x8000 > 0
+            return self.__convertButtonState__(win32api.GetKeyState(0x02))
 
 
 class KeyDetector:
@@ -170,7 +177,7 @@ class DoubleClicker:
 
 
 class Watermark(QWidget):
-    def __init__(self):
+    def __init__(self, i):
         QWidget.__init__(self)
         if settings['GUI']['Watermark']['TopMost']:
             self.setWindowFlags(
@@ -186,7 +193,7 @@ class Watermark(QWidget):
             )
         self.setWindowOpacity(settings['GUI']['Watermark']['Opacity'])
         self.setStyleSheet(settings['GUI']['Watermark']['Style'])
-        self.setGeometry(5, 5, 25, 25)
+        self.setGeometry(5, i, 25, 25)
         self.label = QLabel(settings['GUI']['Watermark']['Text'], self)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -251,11 +258,12 @@ def main():
     app = QApplication(sys.argv)
 
     doubleClicker = DoubleClicker()
-    i = 50
+    i = 5 + settings['GUI']['Offset']
 
     if settings['GUI']['Watermark']['Show']:
-        watermark = Watermark()
+        watermark = Watermark(i)
         watermark.show()
+        i += 45
     if settings['GUI'][MouseButton.Left.value]['Show'] and settings['Buttons'][MouseButton.Left.value]:
         leftEnabled = Enabled(i, MouseButton.Left, doubleClicker)
         leftEnabled.show()
