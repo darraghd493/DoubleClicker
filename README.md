@@ -7,7 +7,7 @@ To use this, simply run the executable (or the `cli.py` file if you are running 
 
 # How to build
 
-To build this, you will need to install PyInstaller. This can be done with `pip` (apart from Python) by doing `pip install pyinstaller`. Once you have done this simply run `pyinstaller cli.py --name WasdInfo --icon icon.ico --noconfirm --noconsole --onefile` and you should have compiled the Python application.
+To build this, you will need to install PyInstaller. This can be done with `pip` (apart from Python) by doing `pip install pyinstaller`. Once you have done this simply run `pyinstaller cli.py --name DoubleClicker --icon icon.ico --noconfirm --noconsole --onefile` and you should have compiled the Python application.
 
 ## Automation
 The automation for building is in testing right now (Windows only). To use this, open your terminal and run `start "build.bat"` or `start "test-build.bat"` depending on the automated building files name.
